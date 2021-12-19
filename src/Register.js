@@ -2,14 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { app } from "./firebase-config"
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { set_phone } from './actions/action';
+import { getDatabase, ref, set } from "firebase/database";
 
 const Register = () => {
-
-    const dispatch = useDispatch();
-
-
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState();
     const [phone, setPhone] = useState("");
@@ -28,8 +23,6 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        dispatch(set_phone(phone))
-
         if (isFormEmpty(username, email, phone, password)) {
             const auth = getAuth(app);
             createUserWithEmailAndPassword(auth, email, password)
@@ -37,8 +30,8 @@ const Register = () => {
                     const auth = getAuth(app);
                     updateProfile(auth.currentUser, {
                         displayName: username,
-
                     }).then(() => {
+                        writeUserData(userCredential.user.uid)
                         alert("Account Created Sucessfull")
                         Navigate("/login")
                     }).catch((error) => {
@@ -52,6 +45,15 @@ const Register = () => {
     }
 
 
+    const writeUserData = (userId) => {
+        const db = getDatabase(app);
+        set(ref(db, 'users/' + userId), {
+            username,
+            email,
+            phone,
+        });
+    }
+
     return (
         <div className="registration">
             <div className="container">
@@ -61,7 +63,6 @@ const Register = () => {
                     <input type="number" name="" id="" placeholder='Phone Number' onChange={(e) => setPhone(e.target.value)} />
                     <input type="password" name="" id="" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
                     <button type="submit" onClick={handleSubmit}>Signup</button>
-
 
                     <br />
                     <br />

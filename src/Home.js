@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, push, set, onValue } from "firebase/database";
 import { app } from "./firebase-config"
+import HeaderPage from "./HeaderPage";
 import { getAuth, signOut } from "firebase/auth";
 import { Button, Header, Icon, Modal, Container } from 'semantic-ui-react'
 import { useNavigate } from "react-router-dom";
@@ -23,7 +24,7 @@ function Home() {
         e.preventDefault()
 
         const db = getDatabase(app);
-        const postListRef = ref(db, 'posts');
+        const postListRef = ref(db, 'basicInfo');
 
         const newPostRef = push(postListRef);
         set(newPostRef, {
@@ -39,8 +40,9 @@ function Home() {
     }
 
     useEffect(() => {
+
         const db = getDatabase(app);
-        const postListRef = ref(db, 'posts');
+        const postListRef = ref(db, 'basicInfo');
 
         onValue(postListRef, (snapshot) => {
             let userAfterLoad = []
@@ -53,13 +55,13 @@ function Home() {
 
         });
 
-        if (!userName) {
-            const auth = getAuth(app);
-            const user = auth.currentUser;
-            setUserName(user.displayName)
-        }
+        // const auth = getAuth(app);
+        // const user = auth.currentUser
+        // if (user) {
+        //     setUserName(user.displayName)
+        // }
 
-    }, [])
+    }, [name, phone, relation])
 
     const modalOpen = () => {
         setOpen(true)
@@ -81,18 +83,7 @@ function Home() {
 
     return (
         <>
-            <header className="header">
-                <div className="container">
-                    <div className="header-inner">
-                        <div className="header-left">
-                            <h2>{userName}</h2>
-                        </div>
-                        <div className="header-right">
-                            +8801963851464
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <HeaderPage />
 
             <main className="main">
                 <div className="container">
@@ -110,8 +101,8 @@ function Home() {
 
             <Modal
                 basic
-                onClose={false}
-                onOpen={true}
+                // onClose={false}
+                // onOpen={true}
                 open={open}
                 size='small'
             >
