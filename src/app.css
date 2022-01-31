@@ -1,0 +1,73 @@
+.theme__card {
+  background: rgb(211, 209, 209);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.theme__card h2,
+.theme__card h3 {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.theme__card a {
+  color: #fff;
+  background: green;
+  display: block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+.theme__card a:hover {
+  color: #fff;
+}
+.nav {
+  padding: 2rem 0;
+}
+.logo {
+  font-size: 3rem;
+  color: #000;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: none;
+}
+.logo:hover {
+  color: #000;
+}
+.nav__link {
+  margin-top: 1rem;
+}
+.nav .post,
+.nav .project {
+  font-size: 1rem;
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+}
+.nav .post {
+  margin-right: 2rem;
+}
+.search {
+  width: 100%;
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+}
+.search:focus {
+  outline: none;
+}
+.form__input {
+  line-height: 2rem !important;
+}
+.submit__btn {
+  width: 100% !important;
+}
